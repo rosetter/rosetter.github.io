@@ -17,6 +17,9 @@ function startTests() {
     if (! keepTesting) {
         keepTesting = true;
 
+        document.getElementById("status text").innerHTML = 'Testing...';
+//        document.getElementById("finished text").style.visibility = 'hidden';
+
         logClear();
         logHeader();
 
@@ -241,7 +244,6 @@ function drawGeometry() {
 function handleAutoplayNotSupported(nextIndex) {
     log("autoplay not supported");
     console.log("autoplay not supported");
-    startNextTest = function() { startTestOfNextTexture(nextIndex); document.getElementById("next test").style.visibility = 'hidden'; };
     document.getElementById("next test").style.visibility = 'visible';
 }
 
@@ -284,6 +286,9 @@ function startTestOfNextTexture(nextIndex) {
                 });
             };
 
+            //
+            startNextTest = function() { startTestOfNextTexture(nextIndex); };
+
 //            setTimeout(function() {
 ////                if (! textureSource || textureSource.duration === 0)
 //                if (textureSource.paused)
@@ -310,6 +315,8 @@ function startTestOfNextTexture(nextIndex) {
     }
     else {
         keepTesting = false;
+//        document.getElementById("finished text").style.visibility = 'visible';
+        document.getElementById("status text").innerHTML = 'Finished!';
     }
 }
 
