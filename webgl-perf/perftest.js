@@ -40,6 +40,8 @@ function start() {
     startTests();
 }
 
+var startNextTest;
+
 // ---------- logging
 
 var pixelTypeToString;
@@ -236,6 +238,13 @@ function drawGeometry() {
 
 // ---------- tests
 
+function handleAutoplayNotSupported(nextIndex) {
+    log("autoplay not supported");
+    console.log("autoplay not supported");
+    startNextTest = function() { startTestOfNextTexture(nextIndex); document.getElementById("next test").style.visibility = 'hidden'; };
+    document.getElementById("next test").style.visibility = 'visible';
+}
+
 function isVideoSource(filePath) {
     return filePath.endsWith(".mp4");
 }
@@ -274,6 +283,15 @@ function startTestOfNextTexture(nextIndex) {
                     startTestOfNextTexture(nextIndex + 1);
                 });
             };
+
+//            setTimeout(function() {
+////                if (! textureSource || textureSource.duration === 0)
+//                if (textureSource.paused)
+//                    handleAutoplayNotSupported(nextIndex);
+//                else
+//                    log("2 autoplay works");
+//            },
+//            500);
 
             // try to disable the iPhone video fullscreen mode:
             textureSource.setAttribute("playsinline", "");
