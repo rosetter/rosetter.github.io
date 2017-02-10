@@ -300,7 +300,7 @@ function startTestOfNextTexture(nextIndex) {
             };
 
             //
-            startNextTest = function() { startTestOfNextTexture(nextIndex); };
+            startNextTest = function() { textureSource.play(); }
 
 //            setTimeout(function() {
 ////                if (! textureSource || textureSource.duration === 0)
