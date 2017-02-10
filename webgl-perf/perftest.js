@@ -288,7 +288,7 @@ function startTestOfNextTexture(nextIndex) {
                 log("Error: " + err + " (errorcode="+textureSource.error.code+")", "color:red;");
             };
 
-            textureSource.oncanplay = function videoLoaded() {
+            textureSource.onloadeddata = function videoLoaded() {
                 logDebug("got oncanplay callback");
                 textureSource.width = textureSource.videoWidth;
                 textureSource.height = textureSource.videoHeight;
@@ -300,7 +300,7 @@ function startTestOfNextTexture(nextIndex) {
             };
 
             //
-            startNextTest = function() { document.body.appendChild(textureSource); textureSource.play(); }
+            startNextTest = function() { textureSource.play(); }
 
 //            setTimeout(function() {
 ////                if (! textureSource || textureSource.duration === 0)
