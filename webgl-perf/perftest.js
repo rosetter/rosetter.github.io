@@ -32,11 +32,14 @@ function stopTests() {
 }
 
 function start() {
-    canvas = initCanvas();
-    gl = initGlContext();
-    shader = createAndUseShaders();
-
-    createGeometry();
+    try {
+        canvas = initCanvas();
+        gl = initGlContext();
+        shader = createAndUseShaders();
+        createGeometry();
+    } catch(e) {
+        log(e, "color:red;");
+    }
 
     createStateSets();
 
@@ -57,6 +60,10 @@ function log(msg,style) {
 
 function logClear() {
     document.getElementById("log").value = '';
+}
+
+function logDebug(msg) {
+    log(" ***** " + msg);
 }
 
 function logWebgl() {
@@ -158,8 +165,10 @@ function initGlContext() {
     for (var i=0; i<4; i++)
     {
         gl = canvas.getContext(contextNames[i], glContextAttributes)
-        if (gl)
+        if (gl) {
+            logDebug("got webgl context named" + contextNames[i]);
             break;
+        }
     }
 
     if (!gl)
@@ -252,6 +261,8 @@ function isVideoSource(filePath) {
 }
 
 function startTestOfNextTexture(nextIndex) {
+    logDebug("startTestOfNextTexture "+nextIndex);
+
     if (nextIndex < sourceFilePaths.length) {
         var filePath = "media/" + sourceFilePaths[nextIndex];
 
@@ -278,9 +289,11 @@ function startTestOfNextTexture(nextIndex) {
             };
 
             textureSource.oncanplay = function videoLoaded() {
+                logDebug("got oncanplay callback");
                 textureSource.width = textureSource.videoWidth;
                 textureSource.height = textureSource.videoHeight;
                 startStateTests(textureSource, filePath, function() {
+                    logDebug("got startStateTests finished cb");
                     textureSource.pause();
                     startTestOfNextTexture(nextIndex + 1);
                 });
