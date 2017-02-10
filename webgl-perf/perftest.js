@@ -300,7 +300,7 @@ function startTestOfNextTexture(nextIndex) {
             };
 
             //
-            startNextTest = function() { textureSource.play(); }
+            startNextTest = function() { document.body.appendChild(textureSource); textureSource.play(); }
 
 //            setTimeout(function() {
 ////                if (! textureSource || textureSource.duration === 0)
